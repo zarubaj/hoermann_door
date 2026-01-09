@@ -42,6 +42,25 @@ void UAPBridge_esp::loop_slow() {
     if (this->ignore_next_event) {
       this->ignore_next_event = false;
     } else {
+
+		// --- DIAGNOSTIKA PRO SVĚTELNOU ZÁVORU ---
+      // Tento log ti ukáže přesně, co se děje na sběrnici
+      if (this->valid_broadcast) {
+          ESP_LOGD(TAG, "UAP1 Status Analysis | Raw: 0x%04X | Binary: "
+                   "%d%d%d%d%d%d%d%d %d%d%d%d%d%d%d%d",
+                   this->broadcast_status,
+                   (this->broadcast_status >> 15) & 1, (this->broadcast_status >> 14) & 1,
+                   (this->broadcast_status >> 13) & 1, (this->broadcast_status >> 12) & 1,
+                   (this->broadcast_status >> 11) & 1, (this->broadcast_status >> 10) & 1,
+                   (this->broadcast_status >> 9) & 1,  (this->broadcast_status >> 8) & 1,
+                   (this->broadcast_status >> 7) & 1,  (this->broadcast_status >> 6) & 1,
+                   (this->broadcast_status >> 5) & 1,  (this->broadcast_status >> 4) & 1,
+                   (this->broadcast_status >> 3) & 1,  (this->broadcast_status >> 2) & 1,
+                   (this->broadcast_status >> 1) & 1,  (this->broadcast_status >> 0) & 1
+          );
+      }
+      // ----------------------------------------
+		
       ESP_LOGD(TAG, "loop_slow called - %02x %02x == %d", (uint8_t)(this->broadcast_status >> 8), (uint8_t)this->broadcast_status, this->broadcast_status);
       hoermann_state_t new_state = hoermann_state_stopped;
 
