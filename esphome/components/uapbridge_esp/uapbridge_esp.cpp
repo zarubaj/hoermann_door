@@ -61,7 +61,7 @@ void UAPBridge_esp::loop_slow() {
       }
       // ----------------------------------------
 		
-      ESP_LOGD(TAG, "loop_slow called - %02x %02x == %d", (uint8_t)(this->broadcast_status >> 8), (uint8_t)this->broadcast_status, this->broadcast_status);
+      //ESP_LOGD(TAG, "loop_slow called - %02x %02x == %d", (uint8_t)(this->broadcast_status >> 8), (uint8_t)this->broadcast_status, this->broadcast_status);
       hoermann_state_t new_state = hoermann_state_stopped;
 
       if (this->broadcast_status & hoermann_state_open) {
